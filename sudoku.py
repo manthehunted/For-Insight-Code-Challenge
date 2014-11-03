@@ -27,20 +27,20 @@ class sudoku():
         entries = [(i,j) for i in r for j in c]
         sudoku.addVariables(entries, range(1, n**2+1))
 
-        #constraint: all variables can only take 1-9
+        #constrain: all variables can only take 1-9
         sudoku.addConstraint(InSetConstraint(r+1))
 
-        #constraint: all elements in a row differ
+        #constrain: all elements in a row differ
         for row in r:
             row_entry = [(row, col) for col in c]
             sudoku.addConstraint(AllDifferentConstraint(), row_entry)
 
-        #constraint: all elements in a column differ
+        #constrain: all elements in a column differ
         for col in c:
             col_entry = [(row, col) for row in r]
             sudoku.addConstraint(AllDifferentConstraint(), col_entry)
 
-        #constraint: non-zero entry is constrained by a corresponding given value
+        #constrain: non-zero entry is constrained by a corresponding given value
         values = self.problem.reshape(-1)
         for ind, entry in enumerate(entries):
             if values[ind] > 0:
@@ -48,7 +48,7 @@ class sudoku():
             else:
                 pass
 
-        #constraint: within a block (for 9x9 sudoku, the block is 3x3), all elements differ
+        #constrain: within a block (for 9x9 sudoku, the block is 3x3), all elements differ
         jump = int(np.sqrt(n))
         for i in np.arange(0,n,jump):
             rows = np.arange(i, i+jump)
@@ -66,7 +66,7 @@ class sudoku():
             self.solution = self.solution.translate(None,"'[],.:")
             self.solution = ''.join(self.solution.split())
         else:
-            self.solution = None
+            self.solution = 0
 
         return self.solution
 
