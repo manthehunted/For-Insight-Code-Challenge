@@ -55,7 +55,7 @@ class Gui():
 
 
     def save(self, event):
-        '''save a solved solution'''
+        '''save a solution'''
         #print('save called')
         val = self.var.get()
         val = list(val)
